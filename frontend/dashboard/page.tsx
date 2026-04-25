@@ -1,0 +1,3 @@
+'use client';
+import { useEffect, useState } from 'react'; import { Shell } from '@/components/Shell'; import { api } from '@/lib/api';
+export default function Dashboard(){ const [s,setS]=useState<any>({}); useEffect(()=>{api('/analytics/summary').then(setS).catch(()=>location.href='/login')},[]); return <Shell><h1 className="text-3xl font-bold mb-6">Admin analytics</h1><div className="grid md:grid-cols-5 gap-4">{[['Invoices',s.invoices],['Paid revenue',s.paid_revenue],['Outstanding',s.outstanding],['Customers',s.customers],['Subscriptions',s.subscriptions]].map(([k,v])=><div className="card" key={k as string}><div className="text-sm text-slate-500">{k}</div><div className="text-3xl font-bold mt-2">{v??0}</div></div>)}</div></Shell> }

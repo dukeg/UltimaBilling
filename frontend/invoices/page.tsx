@@ -1,0 +1,3 @@
+'use client';
+import { useEffect, useState } from 'react'; import { Shell } from '@/components/Shell'; import { api } from '@/lib/api';
+export default function Invoices(){ const [rows,setRows]=useState<any[]>([]); const load=()=>api('/invoices').then(setRows); useEffect(load,[]); return <Shell><h1 className="text-3xl font-bold mb-6">Invoices</h1><p className="mb-4 text-slate-600">Create invoices through API docs or extend this page for custom line-item entry.</p><div className="card">{rows.map(r=><div className="py-3 border-b flex justify-between" key={r.id}><span>{r.invoice_number}</span><span>{r.currency} {r.total}</span><span>{r.status}</span></div>)}</div></Shell> }
